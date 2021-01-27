@@ -1,4 +1,6 @@
 const Task = require('../models/task')
+const formidable = require('formidable')
+const fs = require('fs')
 
 exports.getTasks = (req, res) => {
     const tasks = Task.find().select("_id title description")
@@ -11,17 +13,29 @@ exports.getTasks = (req, res) => {
 }
 
 exports.createTask = (req, res) => {
-    const task = new Task(req.body)
-    // console.log("Creating task: " + task)
-    // console.log("Task body: " + req.body)
-    task.save((err, result) => {
+    let form = new formidable.IncomingForm()
+    form.keepExtensions = true
+    form.parse(req, (err, fields, files) => {
         if (err) {
-            return res.status(400).json({
-                error: err
+            res.status(400).json({
+                error: "Image could not be uploaded."
             })
         }
-        res.status(200).json({
-            task: result
+        let task = new Task(fields)
+        req.profile.hashed_password = undefined
+        req.profile.salt = undefined
+        task.submittedBy = req.profile
+        if (files.photo) {
+            task.photo.data = fs.readFileSync(files.photo.path)
+            task.photo.contentType = files.photo.type
+        }
+        task.save((err, result) => {
+            if (err) {
+                return res.status(400).json({
+                    error: err
+                })
+            }
+            res.json(result)
         })
     })
 }

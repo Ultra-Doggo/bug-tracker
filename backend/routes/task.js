@@ -8,7 +8,7 @@ const {userById} = require('../controllers/user')
 const router = express.Router()
 
 router.get('/', requireLogin, getTasks)
-router.post('/create-task', requireLogin, createTaskValidator, createTask)
+router.post('/create-task/:userId', requireLogin, createTask, createTaskValidator)
 
 router.param("userId", userById)
 

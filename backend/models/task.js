@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const {ObjectId} = mongoose.Schema
 
 const taskSchema = new mongoose.Schema({
     // define what a task must consist of here
@@ -10,8 +11,20 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: true
 
+    },
+    photo: {
+        data: Buffer,
+        contentType: String
+    },
+    submittedBy: {
+        type: ObjectId,
+        ref: "User"
+    },
+    created: {
+        type: Date,
+        default: Date.now
     }
-    // TODO: add more properties - assignedTo, submittedBy, status, created, updated, etc...
+    // TODO: add more properties - assignedTo, status, updated, etc...
 })
 
 module.exports = mongoose.model("Task", taskSchema)
