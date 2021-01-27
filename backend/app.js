@@ -23,12 +23,23 @@ const userAuthRoutes = require('./routes/userAuth')
 
 // middleware:
 app.use(morgan("dev"))
+
 app.use(bodyParser.json())
-app.use(expressValidator())
 app.use(cookieParser())
+
+app.use(expressValidator())
 
 app.use('/', taskRoutes)
 app.use('/', userAuthRoutes)
+
+app.use(function (err, req, res,next) {
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).json({
+            error: "Unauthorized User Error."
+        })
+    }
+})
+
 
 const port = process.env.PORT || 8080
 app.listen(port, () => console.log(`API listening on port ${port}`))

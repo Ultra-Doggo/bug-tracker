@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
+const expressJwt = require('express-jwt')
 require('dotenv').config()
 
 exports.register = async (req, res) => {
@@ -53,3 +54,9 @@ exports.logout = (req, res) => {
         message: "Successful logout."
     })
 }
+
+exports.requireLogin = expressJwt({
+    secret: process.env.JWT_SECRET,
+    algorithms: ["HS256"],
+    userProperty: "auth"
+})
