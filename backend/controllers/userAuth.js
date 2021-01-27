@@ -46,3 +46,10 @@ exports.login = (req, res) => {
         })
     })
 }
+
+exports.logout = (req, res) => {
+    res.clearCookie("t")
+    return res.json({
+        message: "Successful logout."
+    })
+}
