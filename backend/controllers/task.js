@@ -14,6 +14,20 @@ exports.getTasks = (req, res) => {
         })
 }
 
+exports.tasksByUser = (req, res) => {
+    Task.find({submittedBy: req.profile._id})
+        .populate("submittedBy", "_id firstName lastName")
+        .sort("_created")
+        .exec((err, tasks) => {
+            if (err) {
+                return res.status(400).json({
+                    error: err
+                })
+            }
+            res.json(tasks)
+        })
+}
+
 exports.createTask = (req, res) => {
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
