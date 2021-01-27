@@ -1,9 +1,13 @@
 const express = require('express')
-const {getTasks, tasksByUser, createTask} = require('../controllers/task')
-const {createTaskValidator} = require('../validation')
-const {requireLogin} = require('../controllers/userAuth')
+const {
+    getTasks, 
+    tasksByUser, 
+    taskById, 
+    createTask
+} = require('../controllers/task')
 const {userById} = require('../controllers/user')
-
+const {requireLogin} = require('../controllers/userAuth')
+const {createTaskValidator} = require('../validation')
 
 const router = express.Router()
 
@@ -12,6 +16,7 @@ router.post('/create-task/:userId', requireLogin, createTask, createTaskValidato
 router.get('/tasks-by/:userId', tasksByUser)
 
 router.param("userId", userById)
+router.param("taskId", taskById)
 
 
 module.exports = router
