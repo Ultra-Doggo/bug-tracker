@@ -3,7 +3,9 @@ const formidable = require('formidable')
 const fs = require('fs')
 
 exports.getTasks = (req, res) => {
-    const tasks = Task.find().select("_id title description")
+    const tasks = Task.find()
+        .populate("submittedBy", "_id firstName lastName")
+        .select("_id title description")
         .then(tasks => {
             res.status(200).json({ tasks: tasks })
         })
