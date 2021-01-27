@@ -17,6 +17,8 @@ mongoose.connection.on('error', err => {
 
 // bring in routes:
 const taskRoutes = require('./routes/task')
+const userAuthRoutes = require('./routes/userAuth')
+
 
 // middleware:
 app.use(morgan("dev"))
@@ -24,6 +26,7 @@ app.use(bodyParser.json())
 app.use(expressValidator())
 
 app.use('/', taskRoutes)
+app.use('/', userAuthRoutes)
 
 const port = process.env.PORT || 8080
 app.listen(port, () => console.log(`API listening on port ${port}`))
