@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
+const cookieParser = require('cookie-parser')
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ const userAuthRoutes = require('./routes/userAuth')
 app.use(morgan("dev"))
 app.use(bodyParser.json())
 app.use(expressValidator())
+app.use(cookieParser())
 
 app.use('/', taskRoutes)
 app.use('/', userAuthRoutes)
