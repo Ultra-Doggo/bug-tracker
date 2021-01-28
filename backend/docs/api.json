@@ -1,12 +1,15 @@
 {
     "/api": "api documentation",
+
     "/register": "register a new user",
     "/login": "log user in",
     "/logout": "log user out",
+
     "/tasks/all": "get all posts by all users",
     "/new/task/:userId": "create a new task",
-    "/tasks/by/:userId": "return all tasks submitted by specified user",
     "/task/:taskId": "delete or update (put) a specified task",
+    "/tasks/by/:userId": "return all tasks submitted by specified user",
+    
     "/users": "get data on all users",
-    "/user/:userId": "get, delete, or update (post) the specified user"
+    "/user/:userId": "get, delete, or update (put) the specified user"
 }
