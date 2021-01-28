@@ -1,10 +1,13 @@
 const express = require('express')
-const {getUser, allUsers, userById} = require('../controllers/user')
+const {getUser, updateUser, allUsers, userById} = require('../controllers/user')
+const { requireLogin } = require('../controllers/userAuth')
+
 
 const router = express.Router()
 
-router.get('/user/:userId', getUser)
 router.get('/users', allUsers)
+router.get('/user/:userId', requireLogin, getUser)
+router.put('/user/:userId', requireLogin, updateUser)
 
 router.param("userId", userById)
 
