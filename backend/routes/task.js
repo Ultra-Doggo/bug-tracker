@@ -14,7 +14,7 @@ const {createTaskValidator} = require('../validation')
 
 const router = express.Router()
 
-router.get('/', requireLogin, getTasks)
+router.get('/tasks/all', requireLogin, getTasks)
 router.post('/new/task/:userId', requireLogin, createTask, createTaskValidator)
 router.get('/tasks/by/:userId', tasksByUser)
 router.delete('/task/:taskId', requireLogin, isSubmitter, deleteTask)

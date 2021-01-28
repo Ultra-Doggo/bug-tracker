@@ -6,6 +6,7 @@ const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const cookieParser = require('cookie-parser')
+const fs = require('fs')
 
 dotenv.config()
 
@@ -20,6 +21,19 @@ mongoose.connection.on('error', err => {
 const taskRoutes = require('./routes/task')
 const userAuthRoutes = require('./routes/userAuth')
 const userRoutes = require('./routes/user')
+
+app.get("/api", (req, res) => {
+    fs.readFile("docs/api.json", (err, data) => {
+        if (err) {
+            res.status(400).json({
+                error: err
+            })
+        }
+        const documentation = JSON.parse(data)
+        res.json(documentation)
+
+    })
+})
 
 
 // middleware:
