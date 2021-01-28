@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const expressValidator = require('express-validator')
 const cookieParser = require('cookie-parser')
 const fs = require('fs')
+const cors = require('cors')
 
 dotenv.config()
 
@@ -38,6 +39,7 @@ app.get("/api", (req, res) => {
 
 // middleware:
 app.use(morgan("dev"))
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(cookieParser())
