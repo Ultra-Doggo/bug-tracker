@@ -18,7 +18,7 @@ exports.getUser = (req, res) => {
     return res.status(200).json(req.profile)
 }
 
-exports.updateUser = (req, res, next) => {
+exports.updateUser = (req, res) => {
     let user = req.profile
     user = _.extend(user, req.body)
     user.updated = Date.now()
@@ -34,6 +34,20 @@ exports.updateUser = (req, res, next) => {
     })
 }
 
+exports.deleteUser = (req, res) => {
+    let user = req.profile
+    user.remove((err, user) => {
+        if (err) {
+            res.status(400).json({
+                error: err
+            })
+        }
+        res.status(200).json({
+            message: "User successfully deleted."
+        })
+    })
+}
+
 exports.userById = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
         if (err || !user) {
@@ -46,7 +60,7 @@ exports.userById = (req, res, next, id) => {
     })
 }
 
-exports.hasAuthorization = (req, res, next) => {
+exports.hasAuthorization = (req, res) => {
     const authorized = 
         req.profile && req.auth && req.profile._id === req.auth._id
 
