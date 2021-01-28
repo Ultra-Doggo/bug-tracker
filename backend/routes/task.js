@@ -5,7 +5,8 @@ const {
     taskById, 
     createTask,
     isSubmitter,
-    deleteTask
+    deleteTask,
+    updateTask
 } = require('../controllers/task')
 const {userById} = require('../controllers/user')
 const {requireLogin} = require('../controllers/userAuth')
@@ -17,6 +18,8 @@ router.get('/', requireLogin, getTasks)
 router.post('/new/task/:userId', requireLogin, createTask, createTaskValidator)
 router.get('/tasks/by/:userId', tasksByUser)
 router.delete('/task/:taskId', requireLogin, isSubmitter, deleteTask)
+router.delete('/task/:taskId', requireLogin, isSubmitter, updateTask)
+
 
 router.param("userId", userById)
 router.param("taskId", taskById)

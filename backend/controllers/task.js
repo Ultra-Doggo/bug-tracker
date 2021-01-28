@@ -1,6 +1,7 @@
 const Task = require('../models/task')
 const formidable = require('formidable')
 const fs = require('fs')
+const _ = require('lodash')
 
 exports.getTasks = (req, res) => {
     const tasks = Task.find()
@@ -92,5 +93,19 @@ exports.deleteTask = (req, res) => {
     })
     res.json({
         message: "Task deleted."
+    })
+}
+
+exports.updateTask = (req, res) => {
+    let task = req.task
+    task = _.extend(task, req.body)
+    task.updated() = Date.now()
+    task.save((err) => {
+        if (err) {
+            return res.status(400).json({
+                error: err
+            })
+        }
+        res.json(task)
     })
 }
