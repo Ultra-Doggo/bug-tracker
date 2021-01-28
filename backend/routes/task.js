@@ -18,7 +18,7 @@ router.get('/', requireLogin, getTasks)
 router.post('/new/task/:userId', requireLogin, createTask, createTaskValidator)
 router.get('/tasks/by/:userId', tasksByUser)
 router.delete('/task/:taskId', requireLogin, isSubmitter, deleteTask)
-router.delete('/task/:taskId', requireLogin, isSubmitter, updateTask)
+router.put('/task/:taskId', requireLogin, isSubmitter, updateTask)
 
 
 router.param("userId", userById)

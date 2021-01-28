@@ -99,7 +99,7 @@ exports.deleteTask = (req, res) => {
 exports.updateTask = (req, res) => {
     let task = req.task
     task = _.extend(task, req.body)
-    task.updated() = Date.now()
+    task.updated = Date.now()
     task.save((err) => {
         if (err) {
             return res.status(400).json({
