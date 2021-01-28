@@ -69,3 +69,28 @@ exports.createTask = (req, res) => {
         })
     })
 }
+
+exports.isSubmitter = (req, res, next) => {
+    let isSubmitter = 
+        req.task && req.auth && req.task.submittedBy.id === req.auth._id
+    if (!isSubmitter) {
+        res.status(403).json({
+            err: "User is not authorized to perform this action."
+        })
+    }
+    next()
+}
+
+exports.deleteTask = (req, res) => {
+    let task = req.task
+    task.remove((err) => {
+        if (err) {
+            res.status(400).json({
+                error: err
+            })
+        }
+    })
+    res.json({
+        message: "Task deleted."
+    })
+}
