@@ -19,6 +19,7 @@ mongoose.connection.on('error', err => {
 // bring in routes:
 const taskRoutes = require('./routes/task')
 const userAuthRoutes = require('./routes/userAuth')
+const userRoutes = require('./routes/user')
 
 
 // middleware:
@@ -31,6 +32,7 @@ app.use(expressValidator())
 
 app.use('/', taskRoutes)
 app.use('/', userAuthRoutes)
+app.use('/', userRoutes)
 
 app.use(function (err, req, res,next) {
     if (err.name === 'UnauthorizedError') {

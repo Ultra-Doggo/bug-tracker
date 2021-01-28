@@ -1,5 +1,18 @@
 const User = require('../models/user')
 
+exports.allUsers = (req, res) => {
+    User.find((err, users) => {
+        if (err) {
+            return res.status(400).json({
+                error: err
+            })
+        }
+        res.status(200).json({
+            users: users
+        })
+    }).select("firstName lastName email")
+}
+
 exports.userById = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
         if (err || !user) {
