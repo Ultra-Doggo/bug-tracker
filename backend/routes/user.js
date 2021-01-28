@@ -1,8 +1,9 @@
 const express = require('express')
-const {userById, allUsers} = require('../controllers/user')
+const {getUser, allUsers, userById} = require('../controllers/user')
 
 const router = express.Router()
 
+router.get('/user/:userId', getUser)
 router.get('/users', allUsers)
 
 router.param("userId", userById)

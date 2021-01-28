@@ -13,6 +13,10 @@ exports.allUsers = (req, res) => {
     }).select("firstName lastName email")
 }
 
+exports.getUser = (req, res) => {
+    return res.status(200).json(req.profile)
+}
+
 exports.userById = (req, res, next, id) => {
     User.findById(id).exec((err, user) => {
         if (err || !user) {
