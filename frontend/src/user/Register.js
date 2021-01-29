@@ -70,7 +70,7 @@ class Register extends Component {
                         onChange={this.handleChange("firstName")} 
                         type="text" 
                         className="form-control"
-                        value={this.state.firstName}
+                        value={firstName}
                         >    
                     </input>
                 </div>
@@ -80,7 +80,7 @@ class Register extends Component {
                         onChange={this.handleChange("lastName")} 
                         type="text" 
                         className="form-control"
-                        value={this.state.lastName}
+                        value={lastName}
                         >
                     </input>
                 </div>
@@ -90,7 +90,7 @@ class Register extends Component {
                         onChange={this.handleChange("email")} 
                         type="email" 
                         className="form-control"
-                        value={this.state.email}
+                        value={email}
                         >
                     </input>
                 </div>
@@ -100,7 +100,7 @@ class Register extends Component {
                         onChange={this.handleChange("password")} 
                         type="password" 
                         className="form-control"
-                        value={this.state.password}
+                        value={password}
                         >
                     </input>
                 </div>
@@ -115,7 +115,7 @@ class Register extends Component {
     }
 
     render() {
-        const {firstName, lastName, email, password} = this.state
+        const {firstName, lastName, email, password, error, success} = this.state
         return (
             <div className="container">
                 <h1 className="mt-5 mb-5">Sign Up</h1>
@@ -124,13 +124,13 @@ class Register extends Component {
                 
                 <div
                     className="alert alert-danger"
-                    style={{display: this.state.error ? "" : "none"}} 
+                    style={{display: error ? "" : "none"}} 
                     >
-                        {this.state.error}
+                        {error}
                 </div>
                 <div
                     className="alert alert-success"
-                    style={{display: this.state.success ? "" : "none"}} 
+                    style={{display: success ? "" : "none"}} 
                     >
                         Your account was created! Please login.
                 </div>
