@@ -9,11 +9,13 @@ class Register extends Component {
             lastName: "",
             email: "",
             password: "",
-            error: ""
+            error: "",
+            success: false
         }
     }
 
     handleChange = (field) => (event) => {
+        this.setState({error: ""})
         this.setState({[field]: event.target.value})
     }
 
@@ -38,6 +40,7 @@ class Register extends Component {
                     lastName: "",
                     email: "",
                     password: "",
+                    success: true
                 })
             }
         })
@@ -109,6 +112,18 @@ class Register extends Component {
                     >
                         Submit
                     </button>
+                    <div
+                        className="alert alert-danger"
+                        style={{display: this.state.error ? "" : "none"}} 
+                        >
+                            {this.state.error}
+                    </div>
+                    <div
+                        className="alert alert-success"
+                        style={{display: this.state.success ? "" : "none"}} 
+                        >
+                            Your account was created! Please login.
+                    </div>
                 </form>
             </div>
         );
