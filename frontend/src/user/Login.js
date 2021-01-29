@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom'
+
 
 class Login extends Component {
 
@@ -17,6 +19,13 @@ class Login extends Component {
         this.setState({ [field]: event.target.value})
     }
 
+    authenticate = (jwt, next) => {
+        if (typeof window !== "undefined") {
+            localStorage.setItem("jwt", JSON.stringify(jwt))
+            next()
+        } 
+    }
+
     clickSubmit = (event) => {
         event.preventDefault()
         const {email, password} = this.state
@@ -31,7 +40,9 @@ class Login extends Component {
                 this.setState({error: data.error})
             }
             else {
-                // TODO: authenticate
+                this.authenticate(data, () => {
+                    this.setState({redirect: true})
+                })
             }
         })
     }
@@ -85,7 +96,12 @@ class Login extends Component {
     }
 
     render() {
-        const {email, password, error} = this.state
+        const {email, password, error, redirect} = this.state
+
+        if (redirect) {
+            return <Redirect to="/" />
+        }
+
         return (
             <div className="container">
                 <h1 className="mt-5 mb-5">Login</h1>
