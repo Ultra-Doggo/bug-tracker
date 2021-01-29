@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link, withRouter} from 'react-router-dom'
+import {isAuthenticated} from '../auth'
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -34,24 +35,39 @@ const TopNav = ({history}) => (
                     <li className="nav-item">
                         <Link className="nav-link" to="/" style={isActive(history, "/")}>Home</Link>
                     </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/register" style={isActive(history, "/register")}>Sign Up</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/login" style={isActive(history, "/login")}>Login</Link>
-                    </li>
-                    <li className="nav-item">
-                        <a 
-                        className="nav-link" 
-                        style={
-                            (isActive(history, "/logout"), 
-                            {cursor: "pointer", color: "#fff"})
-                        }
-                        onClick={() => logout(() => history.push('/login'))}
-                        >
-                            Logout
-                        </a>
-                    </li>
+
+                    {/* NOT a logged in user */}
+                    {!isAuthenticated() && (
+                        <>
+                            <li className="nav-item">
+                            <Link className="nav-link" to="/register" style={isActive(history, "/register")}>Sign Up</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/login" style={isActive(history, "/login")}>Login</Link>
+                            </li>
+                        </>
+                    )}
+
+                    {/* for a logged in user */}
+                    {isAuthenticated() && (
+                        <>
+                            <li className="nav-item">
+                                <a 
+                                className="nav-link" 
+                                style={
+                                    (isActive(history, "/logout"), 
+                                    {cursor: "pointer", color: "#fff"})
+                                }
+                                onClick={() => logout(() => history.push('/login'))}
+                                >
+                                    Logout
+                                </a>
+                            </li>
+                        </>
+                    )}
+
+                    
+                    
                 </ul>
             </div>
     
