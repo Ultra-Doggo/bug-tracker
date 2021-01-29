@@ -10,6 +10,23 @@ const isActive = (history, path) => {
     }
 }
 
+export const logout = (next) => {
+    if(typeof Window !== "undefined") {
+        localStorage.removeItem("jwt")
+    }
+    next()
+    return(
+        fetch("http://localhost:8080/logout", {
+                method: "GET",
+            })
+            .then(response => {
+                console.log('signout', response)
+                return response.json()
+            })
+            .catch(err => console.log(err))
+    )
+}
+
 const TopNav = ({history}) => (
    
             <div>
@@ -22,6 +39,18 @@ const TopNav = ({history}) => (
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/login" style={isActive(history, "/login")}>Login</Link>
+                    </li>
+                    <li className="nav-item">
+                        <a 
+                        className="nav-link" 
+                        style={
+                            (isActive(history, "/logout"), 
+                            {cursor: "pointer", color: "#fff"})
+                        }
+                        onClick={() => logout(() => history.push('/login'))}
+                        >
+                            Logout
+                        </a>
                     </li>
                 </ul>
             </div>
