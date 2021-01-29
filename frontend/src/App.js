@@ -1,8 +1,12 @@
+import React from 'react'
+import MainRouter from './MainRouter'
+import {BrowserRouter} from 'react-router-dom'
+
 function App() {
   return (
-    <div>
-      <h1>React Frontend!</h1>
-    </div>
+    <BrowserRouter>
+      <MainRouter/>
+    </BrowserRouter>
   );
 }
 
