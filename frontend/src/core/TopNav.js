@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 
-class TopNav extends Component {
-    render() {
-        return (
-            <div>
-                <ul className="nav nav-tabs bg-primary">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/">Home</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/register">Sign Up</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/login">Login</Link>
-                    </li>
-                </ul>
-            </div>
-        );
+const isActive = (history, path) => {
+    if (history.location.pathname === path) {
+        return {color: '#004943'}
+    }
+    else {
+        return {color: '#ffffff'}
     }
 }
 
-export default TopNav;
+const TopNav = ({history}) => (
+   
+            <div>
+                <ul className="nav nav-tabs bg-primary">
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/" style={isActive(history, "/")}>Home</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/register" style={isActive(history, "/register")}>Sign Up</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/login" style={isActive(history, "/login")}>Login</Link>
+                    </li>
+                </ul>
+            </div>
+    
+)
+
+export default withRouter(TopNav);
