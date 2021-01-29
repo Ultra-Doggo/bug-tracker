@@ -28,6 +28,19 @@ class Register extends Component {
         }
         // console.log(user)
         this.register(user)
+        .then(data => {
+            if (data.error) {
+                this.setState({error: data.error})
+            }
+            else {
+                this.setState({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    password: "",
+                })
+            }
+        })
     }
 
     register = user => {
