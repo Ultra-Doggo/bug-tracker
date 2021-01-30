@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Redirect} from 'react-router-dom'
 import {authenticate, login} from '../auth'
+import {isAuthenticated} from '../auth'
+
 
 class Login extends Component {
 
@@ -77,7 +79,7 @@ class Login extends Component {
         const {email, password, error, redirect} = this.state
 
         if (redirect) {
-            return <Redirect to="/" />
+            return <Redirect to={`/user/${isAuthenticated().user._id}`} />
         }
 
         return (
