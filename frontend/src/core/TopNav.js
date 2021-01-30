@@ -43,13 +43,13 @@ const TopNav = ({history}) => (
                             Logout
                         </a>
                     </li>
-                    <li className="nav-item">
-                        <a 
-                        className="nav-link disabled" 
-                        >
-                            Welcome, {isAuthenticated().user.firstName}
-                        </a>
-                    </li>
+                    <Link 
+                        to={`/user/${isAuthenticated().user._id}`} 
+                        style={{color: "#fff"}}
+                        className="nav-link"
+                    >
+                        {`${isAuthenticated().user.firstName}'s Dashboard`}
+                    </Link>
                 </>
             )}
         </ul>

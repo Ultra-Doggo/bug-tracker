@@ -4,6 +4,7 @@ import TopNav from './core/TopNav'
 import Home from './core/Home'
 import Register from './user/Register'
 import Login from './user/Login'
+import Dashboard from './user/Dashboard'
 
 const MainRouter = () => (
     <div>
@@ -17,6 +18,9 @@ const MainRouter = () => (
             </Route>
             <Route exact path="/login">
                 <Login/>
+            </Route>
+            <Route exact path="/user/:userId">
+                <Dashboard/>
             </Route>
         </Switch>
     </div>
