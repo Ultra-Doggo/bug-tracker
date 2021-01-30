@@ -10,6 +10,7 @@ class Register extends Component {
             lastName: "",
             email: "",
             password: "",
+            key: "",
             error: "",
             success: false
         }
@@ -22,12 +23,13 @@ class Register extends Component {
 
     clickSubmit = (event) => {
         event.preventDefault()
-        const {firstName, lastName, email, password} = this.state
+        const {firstName, lastName, email, password, key} = this.state
         const user = {
             firstName,
             lastName,
             email,
-            password
+            password,
+            key
         }
         // console.log(user)
         register(user)
@@ -41,13 +43,14 @@ class Register extends Component {
                     lastName: "",
                     email: "",
                     password: "",
+                    key: "",
                     success: true
                 })
             }
         })
     }
 
-    registrationForm = (firstName, lastName, email, password) => {
+    registrationForm = (firstName, lastName, email, password, key) => {
         return (
             <form>
                 <div className="form-group">
@@ -87,6 +90,16 @@ class Register extends Component {
                         type="password" 
                         className="form-control"
                         value={password}
+                        >
+                    </input>
+                </div>
+                <div className="form-group">
+                    <label className="text-muted">Organization Key</label>
+                    <input 
+                        onChange={this.handleChange("key")} 
+                        type="password" 
+                        className="form-control"
+                        value={key}
                         >
                     </input>
                 </div>
