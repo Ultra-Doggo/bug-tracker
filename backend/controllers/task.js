@@ -53,9 +53,14 @@ exports.createTask = (req, res) => {
             })
         }
         let task = new Task(fields)
+        req.profile.pwSalt = undefined
+        req.profile.keySalt = undefined
         req.profile.hashed_password = undefined
-        req.profile.salt = undefined
+        req.profile.hashed_key = undefined
+        req.profile.created = undefined
+
         task.submittedBy = req.profile
+        task.orgId = req.profile.orgId  // adds organization id to this task
         if (files.photo) {
             task.photo.data = fs.readFileSync(files.photo.path)
             task.photo.contentType = files.photo.type

@@ -20,6 +20,10 @@ const taskSchema = new mongoose.Schema({
         type: ObjectId,
         ref: "User"
     },
+    orgId: {
+        type: ObjectId,
+        ref: "Organization"
+    },
     created: {
         type: Date,
         default: Date.now
