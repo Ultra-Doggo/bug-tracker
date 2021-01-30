@@ -27,6 +27,10 @@ exports.createTaskValidator = (req, res, next) => {
 }
 
 exports.registrationValidator = (req, res, next) => {
+
+    // organization key
+    req.check('key', 'Please enter your organization\'s key.').notEmpty()
+
     // first and last name
     req.check('firstName', 'Please enter your first name.').notEmpty()
     req.check('firstName', 'First name must be between 2 to 20 characters.').isLength({

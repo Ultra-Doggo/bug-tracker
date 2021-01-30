@@ -1,16 +1,27 @@
 const User = require('../models/user')
+const Organization = require('../models/organization')
 const jwt = require('jsonwebtoken')
 const expressJwt = require('express-jwt')
+const formidable = require('formidable')
 require('dotenv').config()
 
 exports.register = async (req, res) => {
-    const userExists = await User.findOne({email: req.body.email})
-    if (userExists) {
+    const emailExists = await User.findOne({email: req.body.email})
+    if (emailExists) {
         return res.status(403).json({
             error: "A user with this email already exists."
         })
     }
+    const organizationExists = await Organization.findOne({code: req.body.key})
+    if (!organizationExists) {
+        return res.status(403).json({
+            error: "Organization key not found."
+        })
+    }
+
     const user = await new User(req.body)
+    user.orgId = organizationExists._id
+
     await user.save()
     // res.status(200).json({user}) // all user data
 
@@ -31,7 +42,7 @@ exports.login = (req, res) => {
             })
         }
         // use schema method to ensure passwords match
-        if (!user.authenticate(password)) {
+        if (!user.authenticatePassword(password)) {
             return res.status(401).json({
                 error: "Email and/or password do not match."
             })
