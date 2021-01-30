@@ -33,7 +33,8 @@ const userSchema = mongoose.Schema({
         type: ObjectId,
         ref: "Organization"
     },
-    salt: String,
+    pwSalt: String,
+    keySalt: String,
     created: {
         type: Date,
         default: Date.now
@@ -45,8 +46,8 @@ const userSchema = mongoose.Schema({
 userSchema.virtual('password')
 .set(function(password) {
     this._password = password
-    this.salt = uuidv1()
-    this.hashed_password = this.encrypt(password)
+    this.pwSalt = uuidv1()
+    this.hashed_password = this.encryptPassword(password)
 })
 .get(function() {
     return this._password
@@ -56,20 +57,20 @@ userSchema.virtual('password')
 userSchema.virtual('key')
 .set(function(key) {
     this._key = key
-    this.salt = uuidv1()
-    this.hashed_key = this.encrypt(key)
+    this.keySalt = uuidv1()
+    this.hashed_key = this.encryptKey(key)
 })
 .get(function() {
-    return this._password
+    return this._key
 })
 
 // method for encrypting password & organization key
 userSchema.methods = {
-    encrypt: function(field) {
-        if (!field) return ""
+    encryptPassword: function(password) {
+        if (!password) return ""
         try {
-            return crypto.createHmac('sha1', this.salt)
-                .update(field)
+            return crypto.createHmac('sha1', this.pwSalt)
+                .update(password)
                 .digest('hex')
         } catch (err) {
             return ""
@@ -77,12 +78,23 @@ userSchema.methods = {
     },
     authenticatePassword: function(plainText) {
         return (
-            this.encrypt(plainText) === this.hashed_password
+            this.encryptPassword(plainText) === this.hashed_password
         ) 
     },
-    authenticateOrganization: function(plainText) {
+
+    encryptKey: function(key) {
+        if (!key) return ""
+        try {
+            return crypto.createHmac('sha1', this.keySalt)
+                .update(key)
+                .digest('hex')
+        } catch (err) {
+            return ""
+        }
+    },
+    authenticateKey: function(plainText) {
         return (
-            this.encrypt(plainText) === this.hashed_key
+            this.encryptKey(plainText) === this.hashed_key
         ) 
     }
 }
