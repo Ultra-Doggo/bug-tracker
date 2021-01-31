@@ -170,7 +170,7 @@ class EditUser extends Component {
                 </div>
                 
                 <h4 className="mt-5">Danger Zone</h4>
-                <DeleteUser/>
+                <DeleteUser userId={id}/>
             </div>
         );
     }
