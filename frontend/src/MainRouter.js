@@ -6,6 +6,7 @@ import Register from './user/Register'
 import Login from './user/Login'
 import Dashboard from './user/Dashboard'
 import EditUser from './user/EditUser'
+import PrivateRoute from './auth/PrivateRoute'
 
 const MainRouter = () => (
     <div>
@@ -20,12 +21,14 @@ const MainRouter = () => (
             <Route exact path="/login">
                 <Login/>
             </Route>
-            <Route exact path="/user/:userId">
-                <Dashboard/>
-            </Route>
-            <Route exact path="/user/settings/:userId">
-                <EditUser/>
-            </Route>
+            <PrivateRoute
+                exact path="/user/:userId"
+                component={Dashboard}
+            />
+            <PrivateRoute 
+                exact path="/user/settings/:userId"
+                component={EditUser}
+            />
         </Switch>
     </div>
 )
