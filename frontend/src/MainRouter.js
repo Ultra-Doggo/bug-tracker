@@ -12,15 +12,18 @@ const MainRouter = () => (
     <div>
         <TopNav />
         <Switch>
-            <Route exact path="/">
-                <Home/>
-            </Route>
-            <Route exact path="/register">
-                <Register/>
-            </Route>
-            <Route exact path="/login">
-                <Login/>
-            </Route>
+            <Route 
+                exact path="/"
+                component={Home}
+            />
+            <Route 
+                exact path="/register"
+                component={Register}
+            />
+            <Route 
+                exact path="/login"
+                component={Login}
+            />
             <PrivateRoute
                 exact path="/user/:userId"
                 component={Dashboard}

@@ -49,7 +49,7 @@ class Register extends Component {
             }
         })
     }
-
+    
     registrationForm = (firstName, lastName, email, password, key) => {
         return (
             <form>
