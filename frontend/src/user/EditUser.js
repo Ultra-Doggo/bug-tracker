@@ -13,8 +13,41 @@ class EditUser extends Component {
             lastName: "",
             email: "",
             password: "",
-            redirectToDashboard: false
+            redirectToDashboard: false,
+            error: ""
         }
+    }
+
+    componentDidMount() {
+        const userId = isAuthenticated().user._id
+        this.init(userId)
+    }
+
+    isValid = () => {
+        const {firstName, lastName, email, password} = this.state
+        if (firstName.length == 0) {
+            this.setState({error: "First Name is required."})
+            return false
+        }
+        if (lastName.length == 0) {
+            this.setState({error: "Last Name is required."})
+            return false
+        }
+        if (!/.+\@.+\..+/.test(email)) {
+            this.setState({error: "A valid email is required."})
+            return false
+        }
+        if (password.length >= 1) {
+            if (password.length <= 5) {
+                this.setState({error: "Password must contain at least 6 characters."})
+                return false
+            }
+            if (!/\d/.test(password)) {
+                this.setState({error: "Password must contain at least one number."})
+                return false
+            }
+        }
+        return true
     }
 
     init = (userId) => {
@@ -41,31 +74,29 @@ class EditUser extends Component {
 
     clickSubmit = (event) => {
         event.preventDefault()
-        const {firstName, lastName, email, password} = this.state
-        const user = {
-            firstName,
-            lastName,
-            email,
-            password: password || undefined // helps circumvent auth error
+        if (this.isValid()) {
+            const {firstName, lastName, email, password} = this.state
+            const user = {
+                firstName,
+                lastName,
+                email,
+                password: password || undefined // helps circumvent auth error
+            }
+            console.log(user)
+            const userId = isAuthenticated().user._id
+            const token = isAuthenticated().token
+            update(userId, token, user).then(data => {
+                if (data.error) {
+                    this.setState({error: data.error})
+                }
+                else {
+                    this.setState({
+                        redirectToDashboard: true
+                    })
+                }
+            })
         }
-        console.log(user)
-        const userId = isAuthenticated().user._id
-        const token = isAuthenticated().token
-        update(userId, token, user).then(data => {
-            if (data.error) {
-                this.setState({error: data.error})
-            }
-            else {
-                this.setState({
-                    redirectToDashboard: true
-                })
-            }
-        })
-    }
-
-    componentDidMount() {
-        const userId = isAuthenticated().user._id
-        this.init(userId)
+        
     }
 
     updateForm = (firstName, lastName, email, password) => {
@@ -122,18 +153,22 @@ class EditUser extends Component {
     }
 
     render() {
-        const { id, firstName, lastName, email, password, redirectToDashboard } = this.state
+        const { id, firstName, lastName, email, password, redirectToDashboard, error } = this.state
         
         if (redirectToDashboard) {
             return <Redirect to={`/user/${id}`}/>
         }
 
         return (
-
             <div className="container">
                 <h2 className="mt-5 mb-5">User Settings</h2>
-
                 {this.updateForm(firstName, lastName, email, password)}
+                <div
+                    className="alert alert-danger"
+                    style={{display: error ? "" : "none"}} 
+                    >
+                        {error}
+                </div>
             </div>
         );
     }
