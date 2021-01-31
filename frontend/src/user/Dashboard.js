@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {isAuthenticated} from '../auth'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 import {read} from './apiUser'
 
 class Dashboard extends Component {
@@ -32,7 +32,7 @@ class Dashboard extends Component {
 
     render() {
 
-        const redirect = this.state.redirectToLogin
+        const {redirect, user} = this.state
         if (redirect) {
             return (
                 <Redirect to="/login"/>
@@ -41,9 +41,30 @@ class Dashboard extends Component {
 
         return (
             <div className="container">
-                <h2 className="mt-5 mb-5">Dashboard</h2>
-                <p>Welcome, {isAuthenticated().user.firstName}</p>
-                <p>{`Joined ${new Date(this.state.user.created).toDateString()}`}</p>
+                <div className="row">
+                    <div className="col-md-6">
+                        <h2 className="mt-5 mb-5">Dashboard</h2>
+                        <p>Welcome, {isAuthenticated().user.firstName}</p>
+                        <p>{`Joined ${new Date(user.created).toDateString()}`}</p>
+                    </div>
+                    <div className="col-md-6">
+                        {isAuthenticated().user && 
+                            isAuthenticated().user._id ==
+                                user._id && (
+                                <div className="d-inline-block mt-5">
+                                    <Link
+                                        className="btn btn-raised btn-success mr-5"
+                                        to={`/user/edit/${user._id}`}
+                                    >
+                                        Edit Profile
+                                    </Link>
+                                    <button className="btn btn-raised btn-danger">
+                                        Delete Profile
+                                    </button>
+                                </div>
+                            )}
+                    </div>
+                </div>
             </div>
         );
     }
