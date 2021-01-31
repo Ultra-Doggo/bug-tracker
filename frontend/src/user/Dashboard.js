@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {isAuthenticated} from '../auth'
 import {Redirect} from 'react-router-dom'
+import {read} from './apiUser'
 
 class Dashboard extends Component {
 
@@ -12,28 +13,9 @@ class Dashboard extends Component {
         }
     }
 
-    read = (userId, token) => {
-        return (
-            fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
-                method: "GET",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${isAuthenticated().token}`
-                }
-            })
-            .then(response => {
-                return response.json()
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        )
-    }
-
     init = (userId) => {
         const token = isAuthenticated().token
-        this.read(userId, token)
+        read(userId, token)
         .then(data => {
             if (data.error) {
                 this.setState({redirectToLogin: true})
