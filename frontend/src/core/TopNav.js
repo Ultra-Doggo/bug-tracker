@@ -45,7 +45,7 @@ const TopNav = ({history}) => (
                     </li>
                     <Link 
                         to={`/user/${isAuthenticated().user._id}`} 
-                        style={{color: "#fff"}}
+                        style={isActive(history, `/user/${isAuthenticated().user._id}`)}
                         className="nav-link"
                     >
                         {`${isAuthenticated().user.firstName}'s Dashboard`}
