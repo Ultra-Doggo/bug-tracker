@@ -26,15 +26,15 @@ class EditUser extends Component {
 
     isValid = () => {
         const {firstName, lastName, email, password} = this.state
-        if (firstName.length == 0) {
+        if (firstName.length === 0) {
             this.setState({error: "First Name is required."})
             return false
         }
-        if (lastName.length == 0) {
+        if (lastName.length === 0) {
             this.setState({error: "Last Name is required."})
             return false
         }
-        if (!/.+\@.+\..+/.test(email)) {
+        if (!/.+@.+\..+/.test(email)) {
             this.setState({error: "A valid email is required."})
             return false
         }
