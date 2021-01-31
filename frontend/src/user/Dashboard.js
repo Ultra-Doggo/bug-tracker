@@ -44,7 +44,7 @@ class Dashboard extends Component {
                 <div className="row">
                     <div className="col-md-6">
                         <h2 className="mt-5 mb-5">Dashboard</h2>
-                        <p>Welcome, {isAuthenticated().user.firstName}</p>
+                        <p>Welcome, {user.firstName}</p>
                         <p>{`Joined ${new Date(user.created).toDateString()}`}</p>
                     </div>
                     <div className="col-md-6">

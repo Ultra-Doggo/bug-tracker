@@ -48,7 +48,7 @@ const TopNav = ({history}) => (
                         style={isActive(history, `/user/${isAuthenticated().user._id}`)}
                         className="nav-link"
                     >
-                        {`${isAuthenticated().user.firstName}'s Dashboard`}
+                        Dashboard
                     </Link>
                 </>
             )}
