@@ -58,9 +58,6 @@ class Dashboard extends Component {
                                     >
                                         Settings
                                     </Link>
-                                    <button className="btn btn-raised btn-danger">
-                                        Delete Profile
-                                    </button>
                                 </div>
                             )}
                     </div>

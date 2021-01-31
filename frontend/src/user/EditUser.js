@@ -144,7 +144,7 @@ class EditUser extends Component {
                 </div>
                 <button
                     onClick={this.clickSubmit} 
-                    className="btn btn-raised btn-primary"
+                    className="btn btn-raised btn-success"
                 >
                     Update
                 </button>
@@ -161,7 +161,8 @@ class EditUser extends Component {
 
         return (
             <div className="container">
-                <h2 className="mt-5 mb-5">User Settings</h2>
+                <h2 className="mt-5 mb-5">Settings</h2>
+                <h4 className="mt-5">Account Info</h4>
                 {this.updateForm(firstName, lastName, email, password)}
                 <div
                     className="alert alert-danger"
@@ -169,6 +170,11 @@ class EditUser extends Component {
                     >
                         {error}
                 </div>
+                
+                <h4 className="mt-5">Danger Zone</h4>
+                <button className="btn btn-raised btn-danger">
+                    Delete My Account
+                </button>
             </div>
         );
     }
