@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {isAuthenticated} from '../auth'
-import {read} from './apiUser'
+import {read, update} from './apiUser'
+import {Redirect} from 'react-router-dom'
 
 class EditUser extends Component {
 
@@ -11,7 +12,8 @@ class EditUser extends Component {
             firstName: "",
             lastName: "",
             email: "",
-            password: ""
+            password: "",
+            redirectToDashboard: false
         }
     }
 
@@ -20,13 +22,14 @@ class EditUser extends Component {
         read(userId, token)
         .then(data => {
             if (data.error) {
-                this.setState({redirectToLogin: true})
+                this.setState({redirectToDashboard: true})
             } else {
                 this.setState({ 
                     id: data._id, 
                     firstName: data.firstName,
                     lastName: data.lastName,
-                    email: data.email
+                    email: data.email,
+                    error: ""
                 })
             }
         })
@@ -43,10 +46,21 @@ class EditUser extends Component {
             firstName,
             lastName,
             email,
-            password
+            password: password || undefined // helps circumvent auth error
         }
         console.log(user)
-        // TODO: send new data to the backend
+        const userId = isAuthenticated().user._id
+        const token = isAuthenticated().token
+        update(userId, token, user).then(data => {
+            if (data.error) {
+                this.setState({error: data.error})
+            }
+            else {
+                this.setState({
+                    redirectToDashboard: true
+                })
+            }
+        })
     }
 
     componentDidMount() {
@@ -108,8 +122,14 @@ class EditUser extends Component {
     }
 
     render() {
-        const { firstName, lastName, email, password } = this.state
+        const { id, firstName, lastName, email, password, redirectToDashboard } = this.state
+        
+        if (redirectToDashboard) {
+            return <Redirect to={`/user/${id}`}/>
+        }
+
         return (
+
             <div className="container">
                 <h2 className="mt-5 mb-5">User Settings</h2>
 
