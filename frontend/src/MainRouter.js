@@ -5,6 +5,7 @@ import Home from './core/Home'
 import Register from './user/Register'
 import Login from './user/Login'
 import Dashboard from './user/Dashboard'
+import EditUser from './user/EditUser'
 
 const MainRouter = () => (
     <div>
@@ -21,6 +22,9 @@ const MainRouter = () => (
             </Route>
             <Route exact path="/user/:userId">
                 <Dashboard/>
+            </Route>
+            <Route exact path="/user/settings/:userId">
+                <EditUser/>
             </Route>
         </Switch>
     </div>

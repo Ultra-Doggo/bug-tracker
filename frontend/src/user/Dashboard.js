@@ -54,9 +54,9 @@ class Dashboard extends Component {
                                 <div className="d-inline-block mt-5">
                                     <Link
                                         className="btn btn-raised btn-success mr-5"
-                                        to={`/user/edit/${user._id}`}
+                                        to={`/user/settings/${user._id}`}
                                     >
-                                        Edit Profile
+                                        Settings
                                     </Link>
                                     <button className="btn btn-raised btn-danger">
                                         Delete Profile
