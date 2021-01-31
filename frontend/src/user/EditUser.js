@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {isAuthenticated} from '../auth'
 import {read, update} from './apiUser'
 import {Redirect} from 'react-router-dom'
+import DeleteUser from './DeleteUser';
 
 class EditUser extends Component {
 
@@ -19,7 +20,7 @@ class EditUser extends Component {
     }
 
     componentDidMount() {
-        const userId = isAuthenticated().user._id
+        const userId = this.props.match.params.userId
         this.init(userId)
     }
 
@@ -38,12 +39,9 @@ class EditUser extends Component {
             return false
         }
         if (password.length >= 1) {
-            if (password.length <= 5) {
-                this.setState({error: "Password must contain at least 6 characters."})
-                return false
-            }
-            if (!/\d/.test(password)) {
-                this.setState({error: "Password must contain at least one number."})
+            if ((password.length <= 5) || (!/\d/.test(password))) {
+                this.setState(
+                    {error: "Password must contain at least 6 characters, and at least one number."})
                 return false
             }
         }
@@ -172,9 +170,7 @@ class EditUser extends Component {
                 </div>
                 
                 <h4 className="mt-5">Danger Zone</h4>
-                <button className="btn btn-raised btn-danger">
-                    Delete My Account
-                </button>
+                <DeleteUser/>
             </div>
         );
     }
