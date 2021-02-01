@@ -8,6 +8,7 @@ import Dashboard from './user/Dashboard'
 import EditUser from './user/EditUser'
 import PrivateRoute from './auth/PrivateRoute'
 import NewTask from './task/NewTask'
+import SingleTask from './task/SingleTask'
 
 const MainRouter = () => (
     <div>
@@ -16,6 +17,10 @@ const MainRouter = () => (
             <Route 
                 exact path="/"
                 component={Home}
+            />
+            <Route 
+                exact path="/task/:taskId"
+                component={SingleTask}
             />
             <Route 
                 exact path="/register"
