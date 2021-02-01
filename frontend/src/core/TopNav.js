@@ -43,13 +43,25 @@ const TopNav = ({history}) => (
                             Logout
                         </a>
                     </li>
-                    <Link 
-                        to={`/user/${isAuthenticated().user._id}`} 
-                        style={isActive(history, `/user/${isAuthenticated().user._id}`)}
-                        className="nav-link"
-                    >
-                        Dashboard
-                    </Link>
+                    <li className="nav-item">
+                        <Link 
+                            to={`/user/${isAuthenticated().user._id}`} 
+                            style={isActive(history, `/user/${isAuthenticated().user._id}`)}
+                            className="nav-link"
+                        >
+                            Dashboard
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link 
+                            to={`/create/task`} 
+                            style={isActive(history, `/create/task`)}
+                            className="nav-link"
+                        >
+                            Create Task
+                        </Link>
+                    </li>
+                    
                 </>
             )}
         </ul>

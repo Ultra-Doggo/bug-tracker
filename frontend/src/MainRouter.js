@@ -7,6 +7,7 @@ import Login from './user/Login'
 import Dashboard from './user/Dashboard'
 import EditUser from './user/EditUser'
 import PrivateRoute from './auth/PrivateRoute'
+import NewTask from './task/NewTask'
 
 const MainRouter = () => (
     <div>
@@ -31,6 +32,10 @@ const MainRouter = () => (
             <PrivateRoute 
                 exact path="/user/settings/:userId"
                 component={EditUser}
+            />
+            <PrivateRoute 
+                exact path="/create/task"
+                component={NewTask}
             />
         </Switch>
     </div>
