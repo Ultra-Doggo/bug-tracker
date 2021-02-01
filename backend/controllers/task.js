@@ -6,7 +6,8 @@ const _ = require('lodash')
 exports.getTasks = (req, res) => {
     const tasks = Task.find()
         .populate("submittedBy", "_id firstName lastName")
-        .select("_id title description")
+        .select("_id title description created")
+        .sort({created: -1})
         .then(tasks => {
             res.status(200).json(tasks)
         })
