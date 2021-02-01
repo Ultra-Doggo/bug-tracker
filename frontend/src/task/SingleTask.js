@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {singleTask} from './apiTask'
 import {isAuthenticated} from '../auth'
+import {Link} from 'react-router-dom'
 
 class SingleTask extends Component {
     state = {
@@ -17,13 +18,44 @@ class SingleTask extends Component {
             }
         })
     }
+
+    renderTask = (task) => {
+        const submitterFirstName = task.submittedBy ? task.submittedBy.firstName : "N/A"
+        const submitterLastName = task.submittedBy ? task.submittedBy.lastName : ""
+        
+        return (
+            <div className="card-body">
+                {/* <img
+                
+                /> */}
+                <p className="card-text">{task.description}</p>
+                <br/>
+                {/* TODO */}
+                {/* <p className="mark mb-0">
+                    Assigned To: 
+                </p>                           */}
+                <p className="mb-0">
+                    Submitted By: {submitterFirstName} {submitterLastName}
+                </p>
+                <p className="font-italic mb-0">
+                    {new Date(task.created).toDateString()}
+                </p>
+                <Link
+                    to={`/`}
+                    className="btn btn-raised btn-primary btn-sm"
+                >
+                    Back to All Tasks
+                </Link>
+            </div>
+        )
+    }
     
     render() {
+        const {task} = this.state
         return (
-            <div>
-                <h2>Single Post</h2>
-                {this.props.match.params.taskId}
-                {JSON.stringify(this.state.task)}
+            <div className="container">
+                <h2 className="mt-5 mb-5">{task.title}</h2>
+                {this.renderTask(task)}
             </div>
         );
     }
