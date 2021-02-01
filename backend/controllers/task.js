@@ -8,7 +8,7 @@ exports.getTasks = (req, res) => {
         .populate("submittedBy", "_id firstName lastName")
         .select("_id title description")
         .then(tasks => {
-            res.status(200).json({ tasks: tasks })
+            res.status(200).json(tasks)
         })
         .catch(err => {
             console.log(err)
