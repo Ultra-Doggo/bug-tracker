@@ -33,6 +33,23 @@ export const list = (token) => {
     )
 }
 
+export const listByUser = (token, userId) => {
+    return (
+        fetch(`${process.env.REACT_APP_API_URL}/tasks/by/${userId}`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                'Content-Type': "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => console.log(err))
+    )
+}
+
 export const singleTask = (token, taskId) => {
     return (
         fetch(`${process.env.REACT_APP_API_URL}/task/${taskId}`, {

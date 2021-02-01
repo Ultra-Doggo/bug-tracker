@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {isAuthenticated} from '../auth'
 import {Redirect, Link} from 'react-router-dom'
 import {read} from './apiUser'
+import DashboardTabs from './DashboardTabs'
+import {listByUser} from '../task/apiTask'
 
 class Dashboard extends Component {
 
@@ -9,7 +11,9 @@ class Dashboard extends Component {
         super()
         this.state = {
             user: "",
-            redirectToLogin: false
+            redirectToLogin: false,
+            tasks: []
+            // todo: ^ change to submissionTasks and AssignmentTasks
         }
     }
 
@@ -21,6 +25,18 @@ class Dashboard extends Component {
                 this.setState({redirectToLogin: true})
             } else {
                 this.setState({user: data})
+                this.loadTasks(data._id)
+            }
+        })
+    }
+
+    loadTasks = (userId) => {
+        const token = isAuthenticated().token
+        listByUser(token, userId).then(data => {
+            if (data.error) {
+                console.log(data.error)
+            } else {
+                this.setState({tasks: data})
             }
         })
     }
@@ -32,7 +48,7 @@ class Dashboard extends Component {
 
     render() {
 
-        const {redirect, user} = this.state
+        const {redirect, user, tasks} = this.state
         if (redirect) {
             return (
                 <Redirect to="/login"/>
@@ -49,19 +65,25 @@ class Dashboard extends Component {
                     </div>
                     <div className="col-md-6">
                         {isAuthenticated().user && 
-                            isAuthenticated().user._id ===
-                                user._id && (
-                                <div className="d-inline-block mt-5">
-                                    <Link
-                                        className="btn btn-raised btn-success mr-5"
-                                        to={`/user/settings/${user._id}`}
-                                    >
-                                        Settings
-                                    </Link>
-                                </div>
-                            )}
+                            isAuthenticated().user._id === user._id && (
+                            <div className="d-inline-block mt-5">
+                                <Link
+                                    className="btn btn-raised btn-success mr-5"
+                                    to={`/user/settings/${user._id}`}
+                                >
+                                    Settings
+                                </Link>
+                            </div>
+                        )}
+                        <hr/>
+                        <DashboardTabs
+                            tasks={tasks}
+                        />
                     </div>
                 </div>
+
+                
+
             </div>
         );
     }
