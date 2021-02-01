@@ -30,6 +30,10 @@ exports.tasksByUser = (req, res) => {
         })
 }
 
+exports.singleTask = (req, res) => {
+    return res.json(req.task)
+}
+
 exports.taskById = (req, res, next, id) => {
     Task.findById(id)
     .populate("submittedBy", "_id firstName lastName")

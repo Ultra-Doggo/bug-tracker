@@ -32,3 +32,19 @@ export const list = (token) => {
         .catch(err => console.log(err))
     )
 }
+
+export const singleTask = (token, taskId) => {
+    return (
+        fetch(`${process.env.REACT_APP_API_URL}/task/${taskId}`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => console.log(err))
+    )
+}
