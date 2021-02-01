@@ -55,7 +55,15 @@ class SingleTask extends Component {
         return (
             <div className="container">
                 <h2 className="mt-5 mb-5">{task.title}</h2>
-                {this.renderTask(task)}
+
+                {!task ? (
+                    <div>
+                        <h2>Loading...</h2>
+                    </div>
+                ) : (
+                    this.renderTask(task)
+                )}
+
             </div>
         );
     }

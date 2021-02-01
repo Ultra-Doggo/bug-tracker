@@ -66,7 +66,9 @@ class Tasks extends Component {
         const { tasks } = this.state;
         return (
             <div className="container">
-                <h2 className="mt-5 mb-5">Tasks</h2>
+                <h2 className="mt-5 mb-5">
+                    {!tasks.length ? "Loading..." : "All Tasks"}
+                </h2>
 
                 {this.renderTasks(tasks)}
             </div>
