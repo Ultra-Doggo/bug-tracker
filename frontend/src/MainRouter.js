@@ -9,6 +9,7 @@ import EditUser from './user/EditUser'
 import PrivateRoute from './auth/PrivateRoute'
 import NewTask from './task/NewTask'
 import SingleTask from './task/SingleTask'
+import Tasks from './task/Tasks'
 
 const MainRouter = () => (
     <div>
@@ -17,6 +18,10 @@ const MainRouter = () => (
             <Route 
                 exact path="/"
                 component={Home}
+            />
+            <Route 
+                exact path="/tasks/all"
+                component={Tasks}
             />
             <Route 
                 exact path="/task/:taskId"

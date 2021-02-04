@@ -61,6 +61,15 @@ const TopNav = ({history}) => (
                             Create Task
                         </Link>
                     </li>
+                    <li className="nav-item">
+                        <Link 
+                            to={`/tasks/all`} 
+                            style={isActive(history, `/tasks/all`)}
+                            className="nav-link"
+                        >
+                            All Tasks
+                        </Link>
+                    </li>
                     
                 </>
             )}
