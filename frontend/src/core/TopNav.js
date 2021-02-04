@@ -13,7 +13,7 @@ const isActive = (history, path) => {
 
 const TopNav = ({history}) => (
     <div>
-        <ul className="nav nav-tabs bg-primary">
+        <ul className="nav nav-tabs bg-primary justify-content-end">
             <li className="nav-item">
                 <Link className="nav-link" to="/" style={isActive(history, "/")}>Home</Link>
             </li>
@@ -31,18 +31,6 @@ const TopNav = ({history}) => (
             {/* for a logged in user */}
             {isAuthenticated() && (
                 <>
-                    <li className="nav-item">
-                        <a 
-                        className="nav-link" 
-                        style={
-                            (isActive(history, "/logout"), 
-                            {cursor: "pointer", color: "#fff"})
-                        }
-                        onClick={() => logout(() => history.push('/login'))}
-                        >
-                            Logout
-                        </a>
-                    </li>
                     <li className="nav-item">
                         <Link 
                             to={`/user/${isAuthenticated().user._id}`} 
@@ -70,7 +58,18 @@ const TopNav = ({history}) => (
                             All Tasks
                         </Link>
                     </li>
-                    
+                    <li className="nav-item">
+                        <a 
+                        className="nav-link" 
+                        style={
+                            (isActive(history, "/logout"), 
+                            {cursor: "pointer", color: "#fff"})
+                        }
+                        onClick={() => logout(() => history.push('/login'))}
+                        >
+                            Logout
+                        </a>
+                    </li>
                 </>
             )}
         </ul>
