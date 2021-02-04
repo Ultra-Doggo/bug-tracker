@@ -43,7 +43,7 @@ class Tasks extends Component {
                                 Submitted By: {submitterFirstName} {submitterLastName}
                             </p>
                             <p className="font-italic mb-0">
-                                {new Date(task.created).toDateString()}
+                                {`${new Date(task.created).toDateString() } @ ${new Date(task.created).toLocaleTimeString('en-US')}`}
                             </p>
                             <Link
                                 to={`/task/${task._id}`}
