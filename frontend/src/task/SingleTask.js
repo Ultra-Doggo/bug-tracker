@@ -41,12 +41,6 @@ class SingleTask extends Component {
                     {`${new Date(task.created).toDateString() } @ ${new Date(task.created).toLocaleTimeString('en-US')}`}
                 </p>
                 <div className="d-inline-block">
-                    <Link
-                        to={`/`}
-                        className="btn btn-raised btn-primary mt-3 mr-3"
-                    >
-                        Back to All Tasks
-                    </Link>
                     {isAuthenticated().user && isAuthenticated().user._id === task.submittedBy._id && (
                         <>
                             <button className="btn btn-raised btn-info mt-3 mr-3">
