@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {singleTask, remove} from './apiTask'
 import {isAuthenticated} from '../auth'
-import {Redirect} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 class SingleTask extends Component {
     state = {
@@ -62,9 +62,12 @@ class SingleTask extends Component {
                 <div className="d-inline-block">
                     {isAuthenticated().user && isAuthenticated().user._id === task.submittedBy._id && (
                         <>
-                            <button className="btn btn-raised btn-info mt-3 mr-3">
-                                Update Task
-                            </button>
+                            <Link
+                                className="btn btn-raised btn-info mt-3 mr-3"
+                                to={`/task/edit/${this.state.task._id}`}
+                            >
+                                Edit Task
+                            </Link>
                             <button 
                                 className="btn btn-raised btn-danger mt-3 mr-3"
                                 onClick={this.deleteConfirmation}

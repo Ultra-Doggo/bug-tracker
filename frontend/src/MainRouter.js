@@ -10,6 +10,7 @@ import PrivateRoute from './auth/PrivateRoute'
 import NewTask from './task/NewTask'
 import SingleTask from './task/SingleTask'
 import Tasks from './task/Tasks'
+import EditTask from './task/EditTask'
 
 const MainRouter = () => (
     <div>
@@ -26,6 +27,10 @@ const MainRouter = () => (
             <Route 
                 exact path="/task/:taskId"
                 component={SingleTask}
+            />
+            <PrivateRoute 
+                exact path="/task/edit/:taskId"
+                component={EditTask}
             />
             <Route 
                 exact path="/register"
