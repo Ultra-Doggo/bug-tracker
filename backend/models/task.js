@@ -12,10 +12,6 @@ const taskSchema = new mongoose.Schema({
         required: true
 
     },
-    photo: {
-        data: Buffer,
-        contentType: String
-    },
     submittedBy: {
         type: ObjectId,
         ref: "User"

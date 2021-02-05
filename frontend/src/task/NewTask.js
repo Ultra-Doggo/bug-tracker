@@ -10,8 +10,6 @@ class NewTask extends Component {
         this.state = {
             title: "",
             description: "",
-            photo: "",
-            fileSize: 0,
             error: "",
             user: {},
             redirectToDashboard: false
@@ -24,20 +22,13 @@ class NewTask extends Component {
     }
 
     isValid = () => {
-        const { title, description, fileSize} = this.state
-        console.log("inside isValid... fileSize = ", fileSize)
+        const { title, description} = this.state
         if (title.length === 0) {
             this.setState({error: "Title is required."})
             return false
         }
         if (description.length === 0) {
             this.setState({error: "Description is required."})
-            return false
-        }
-        if (fileSize > 1048576) {
-            this.setState({
-                error: "Image size must be less than 1 mb."
-            })
             return false
         }
         return true
@@ -48,14 +39,6 @@ class NewTask extends Component {
         const value = event.target.value
         this.taskData.set(field, value)
         this.setState({[field]: event.target.value})
-    }
-
-    handlePhotoChange = (field) => (event) => {
-        const value = event.target.files[0]
-        const fileSize = event.target.files[0].size
-        this.taskData.set(field, value)
-        this.setState({[field]: value, fileSize})
-        console.log("inside handlePhotoChange ... fileSize = ", fileSize)
     }
 
     clickSubmit = (event) => {
@@ -104,16 +87,6 @@ class NewTask extends Component {
                         >
                     </textarea>
                 </div>
-                <div className="form-group">
-                    <label className="text-muted">{`Screenshot (smaller than 1 mb)`}</label>
-                    <input 
-                        onChange={this.handlePhotoChange("photo")} 
-                        type="file" 
-                        accept="image/*"
-                        className="form-control"
-                        >    
-                    </input>
-                </div>
                 <button
                     onClick={this.clickSubmit} 
                     className="btn btn-raised btn-success"
@@ -125,7 +98,7 @@ class NewTask extends Component {
     }
 
     render() {
-        const { title, description, photo, user, error, redirectToDashboard } = this.state
+        const { title, description, user, error, redirectToDashboard } = this.state
 
         if (redirectToDashboard) {
             return <Redirect to={`/user/${user._id}`}/>

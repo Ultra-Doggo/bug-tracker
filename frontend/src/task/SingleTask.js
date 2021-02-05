@@ -47,9 +47,6 @@ class SingleTask extends Component {
         
         return (
             <div className="card-body">
-                {/* <img
-                
-                /> */}
                 <p className="card-text">{task.description}</p>
                 <br/>
                 {/* TODO */}

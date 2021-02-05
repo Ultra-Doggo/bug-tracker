@@ -51,10 +51,10 @@ exports.taskById = (req, res, next, id) => {
 exports.createTask = (req, res) => {
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, fields) => {
         if (err) {
             res.status(400).json({
-                error: "Image could not be uploaded."
+                error: err
             })
         }
         let task = new Task(fields)
@@ -66,10 +66,6 @@ exports.createTask = (req, res) => {
 
         task.submittedBy = req.profile
         task.orgId = req.profile.orgId  // adds organization id to this task
-        if (files.photo) {
-            task.photo.data = fs.readFileSync(files.photo.path)
-            task.photo.contentType = files.photo.type
-        }
         task.save((err, result) => {
             if (err) {
                 return res.status(400).json({
