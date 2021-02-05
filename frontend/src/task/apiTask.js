@@ -65,3 +65,22 @@ export const singleTask = (token, taskId) => {
         .catch(err => console.log(err))
     )
 }
+
+export const remove = (taskId, token) => {
+    return (
+        fetch(`${process.env.REACT_APP_API_URL}/task/${taskId}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            return response.json()
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    )
+}
