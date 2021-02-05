@@ -77,7 +77,7 @@ class Dashboard extends Component {
                                     className="btn btn-raised btn-secondary mr-5"
                                     to={`/user/settings/${user._id}`}
                                 >
-                                    Settings
+                                    User Settings
                                 </Link>
                             </div>
                         )}

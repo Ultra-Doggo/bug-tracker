@@ -116,7 +116,7 @@ class Register extends Component {
     render() {
         const {firstName, lastName, email, password, error, success} = this.state
         return (
-            <div className="container">
+            <div className="container w-50">
                 <h1 className="mt-5 mb-5">Sign Up</h1>
 
                 {this.registrationForm(firstName, lastName, email, password)}

@@ -83,6 +83,7 @@ class NewTask extends Component {
                         onChange={this.handleChange("description")} 
                         type="text" 
                         className="form-control"
+                        rows="10"
                         value={description}
                         >
                     </textarea>
@@ -105,7 +106,7 @@ class NewTask extends Component {
         }
         
         return (
-            <div className="container">
+            <div className="container w-50">
 
                 <h2 className="mt-5 mb-5">Create a New Task</h2>
 

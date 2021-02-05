@@ -158,8 +158,8 @@ class EditUser extends Component {
         }
 
         return (
-            <div className="container">
-                <h2 className="mt-5 mb-5">Settings</h2>
+            <div className="container mb-5 w-50">
+                <h2 className="mt-5 mb-5">User Settings</h2>
                 <h4 className="mt-5">Account Info</h4>
                 {this.updateForm(firstName, lastName, email, password)}
                 <div

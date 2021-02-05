@@ -83,7 +83,7 @@ class Login extends Component {
         }
 
         return (
-            <div className="container">
+            <div className="container w-50">
                 <h1 className="mt-5 mb-5">Login</h1>
 
                 {this.loginForm(email, password)}
