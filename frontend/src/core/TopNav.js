@@ -31,7 +31,7 @@ const TopNav = ({history}) => (
             {/* for a logged in user */}
             {isAuthenticated() && (
                 <>
-                    <li className="nav-item">
+                    <li className="nav-item ml-1 mr-1">
                         <Link 
                             to={`/user/${isAuthenticated().user._id}`} 
                             style={isActive(history, `/user/${isAuthenticated().user._id}`)}
@@ -40,7 +40,7 @@ const TopNav = ({history}) => (
                             Dashboard
                         </Link>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item ml-1 mr-1">
                         <Link 
                             to={`/tasks/all`} 
                             style={isActive(history, `/tasks/all`)}
@@ -49,7 +49,7 @@ const TopNav = ({history}) => (
                             All Tasks
                         </Link>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item ml-1 mr-1">
                         <Link 
                             to={`/create/task`} 
                             style={isActive(history, `/create/task`)}
@@ -58,7 +58,7 @@ const TopNav = ({history}) => (
                             Create Task
                         </Link>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item ml-1 mr-1">
                         <a 
                         className="nav-link" 
                         style={
