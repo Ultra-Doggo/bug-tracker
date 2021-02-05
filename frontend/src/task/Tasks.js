@@ -28,6 +28,8 @@ class Tasks extends Component {
                 {tasks.map((task, i) => {
                     const submitterFirstName = task.submittedBy ? task.submittedBy.firstName : "N/A"
                     const submitterLastName = task.submittedBy ? task.submittedBy.lastName : ""
+                    const shouldHighlightName = task.submittedBy._id === isAuthenticated().user._id
+                    // TODO: also highlight name if task is ASSIGNED to the current viewing user
                     
                     return (
                         <div className="card col-md-4" key={i}>
@@ -39,7 +41,7 @@ class Tasks extends Component {
                             {/* <p className="mark mb-0">
                                 Assigned To: 
                             </p>                           */}
-                            <p className="mb-0">
+                            <p className={shouldHighlightName ? 'mark mb-0' : 'mb-0'}>
                                 Submitted By: {submitterFirstName} {submitterLastName}
                             </p>
                             <p className="font-italic mb-0">
