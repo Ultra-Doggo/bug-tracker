@@ -40,12 +40,24 @@ class SingleTask extends Component {
                 <p className="font-italic mb-0">
                     {`${new Date(task.created).toDateString() } @ ${new Date(task.created).toLocaleTimeString('en-US')}`}
                 </p>
-                <Link
-                    to={`/`}
-                    className="btn btn-raised btn-primary btn-sm"
-                >
-                    Back to All Tasks
-                </Link>
+                <div className="d-inline-block">
+                    <Link
+                        to={`/`}
+                        className="btn btn-raised btn-primary mt-3 mr-3"
+                    >
+                        Back to All Tasks
+                    </Link>
+                    {isAuthenticated().user && isAuthenticated().user._id === task.submittedBy._id && (
+                        <>
+                            <button className="btn btn-raised btn-info mt-3 mr-3">
+                                Update Task
+                            </button>
+                            <button className="btn btn-raised btn-danger mt-3 mr-3">
+                                Delete Task
+                            </button>
+                        </>
+                    )}                    
+                </div>
             </div>
         )
     }
